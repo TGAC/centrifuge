@@ -84,7 +84,7 @@ endif
 
 ZLIB = -lz
 
-SEARCH_LIBS = 
+SEARCH_LIBS = $(LDFLAGS)
 BUILD_LIBS = 
 INSPECT_LIBS =
 
@@ -104,7 +104,7 @@ ifeq (1,$(USE_SRA))
 	SEARCH_LIBS += -L$(NCBI_NGS_DIR)/lib64 -L$(NCBI_VDB_DIR)/lib64
 endif
 
-LIBS = $(PTHREAD_LIB) $(ZLIB)
+LIBS = -L/tgac/software/testing/libraries/zlib/1.2.8/x86_64/lib $(PTHREAD_LIB) $(ZLIB)
 
 SHARED_CPPS = ccnt_lut.cpp ref_read.cpp alphabet.cpp shmem.cpp \
 	edit.cpp bt2_idx.cpp \
@@ -429,7 +429,7 @@ doc/manual.inc.html: MANUAL.markdown
 MANUAL: MANUAL.markdown
 	perl doc/strip_markdown.pl < $^ > $@
 
-prefix=/usr/local
+prefix=/tgac/software/testing/eipap/dev/x86_64
 
 .PHONY: install
 install: all
