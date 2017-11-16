@@ -104,7 +104,7 @@ ifeq (1,$(USE_SRA))
 	SEARCH_LIBS += -L$(NCBI_NGS_DIR)/lib64 -L$(NCBI_VDB_DIR)/lib64
 endif
 
-LIBS = -L/tgac/software/testing/libraries/zlib/1.2.8/x86_64/lib $(PTHREAD_LIB) $(ZLIB)
+LIBS = $(LDFLAGS) $(PTHREAD_LIB) $(ZLIB)
 
 SHARED_CPPS = ccnt_lut.cpp ref_read.cpp alphabet.cpp shmem.cpp \
 	edit.cpp bt2_idx.cpp \
