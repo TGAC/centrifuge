@@ -28,6 +28,8 @@
 #include <utility>
 #include <limits>
 #include <map>
+#include <sys/stat.h>
+#include <unistd.h>
 #include "alphabet.h"
 #include "assert_helpers.h"
 #include "endian_swap.h"
@@ -254,7 +256,10 @@ static EList<string> sra_accs;
 
 #define DMAX std::numeric_limits<double>::max()
 
-
+inline bool file_exists (const string& name) {
+	struct stat buffer;
+	return (stat (name.c_str(), &buffer) == 0);
+}
 
 /**
  * Encapsulates a synchronized source of both paired-end reads and
@@ -340,12 +345,36 @@ public:
 
             if (!mate1.empty() && !mate2.empty() && !query.empty()) {
                 nb_12u++;
+				if (!file_exists(mate1)) {
+					cerr << "File doesn't exist: " << mate1 << endl;
+					throw 1;
+				}
+				if (!file_exists(mate2)) {
+					cerr << "File doesn't exist: " << mate2 << endl;
+					throw 1;
+				}
+				if (!file_exists(query)) {
+					cerr << "File doesn't exist: " << query << endl;
+					throw 1;
+				}
             }
             else if (!mate1.empty() && !mate2.empty()) {
                 nb_12++;
+				if (!file_exists(mate1)) {
+					cerr << "File doesn't exist: " << mate1 << endl;
+					throw 1;
+				}
+				if (!file_exists(mate2)) {
+					cerr << "File doesn't exist: " << mate2 << endl;
+					throw 1;
+				}
             }
             else if (!query.empty()) {
                 nb_u++;
+				if (!file_exists(query)) {
+					cerr << "File doesn't exist: " << query << endl;
+					throw 1;
+				}
             }
 
             queries->push_back(query);
