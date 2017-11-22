@@ -429,7 +429,7 @@ doc/manual.inc.html: MANUAL.markdown
 MANUAL: MANUAL.markdown
 	perl doc/strip_markdown.pl < $^ > $@
 
-prefix=/tgac/software/testing/eipap/dev/x86_64
+prefix=/usr/local
 
 .PHONY: install
 install: all
